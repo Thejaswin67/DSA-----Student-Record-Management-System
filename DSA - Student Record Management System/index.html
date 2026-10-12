@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Record Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <h2>Student Record Management System</h2>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#records">Records</a>
+        <a href="#add">Add Student</a>
+        <a href="#search">Search</a>
+    </nav>
+</header>
+
+<main class="container">
+
+    <section id="home" class="hero">
+        <div>
+            <p class="tag">DSA MINI PROJECT</p>
+            <h1>Student Record Management System</h1>
+            <p>
+                A beginner-friendly student management system demonstrating
+                linked-list operations, searching, Bubble Sort, marks ranges,
+                and grade classification.
+            </p>
+            <a href="#records" class="btn">View Records</a>
+        </div>
+    </section>
+
+    <section class="card grading-card">
+        <div class="section-title">
+            <div>
+                <h2>Marks & Grade Classification</h2>
+                <p class="muted">Students are classified automatically from their marks.</p>
+            </div>
+        </div>
+
+        <div class="grade-grid">
+            <div class="grade-box grade-f">
+                <strong>F</strong>
+                <span>Below 50</span>
+            </div>
+            <div class="grade-box grade-c">
+                <strong>C</strong>
+                <span>50 - &lt;70</span>
+            </div>
+            <div class="grade-box grade-b">
+                <strong>B</strong>
+                <span>70 - &lt;90</span>
+            </div>
+            <div class="grade-box grade-a">
+                <strong>A</strong>
+                <span>90 - 100</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="records" class="card">
+        <div class="section-title">
+            <div>
+                <h2>Student Records</h2>
+                <p class="muted">View, classify, and sort student information.</p>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div>
+                <span>Total Students</span>
+                <strong id="total">0</strong>
+            </div>
+            <div>
+                <span>Highest Mark</span>
+                <strong id="highest">0</strong>
+            </div>
+            <div>
+                <span>Average Mark</span>
+                <strong id="average">0</strong>
+            </div>
+        </div>
+
+        <div class="grade-counts">
+            <div class="count-card count-a">
+                <span>A Rank</span>
+                <strong id="countA">0</strong>
+                <small>90 - 100</small>
+            </div>
+            <div class="count-card count-b">
+                <span>B Rank</span>
+                <strong id="countB">0</strong>
+                <small>70 - &lt;90</small>
+            </div>
+            <div class="count-card count-c">
+                <span>C Rank</span>
+                <strong id="countC">0</strong>
+                <small>50 - &lt;70</small>
+            </div>
+            <div class="count-card count-f">
+                <span>F Rank</span>
+                <strong id="countF">0</strong>
+                <small>Below 50</small>
+            </div>
+        </div>
+
+        <div class="filter-panel">
+            <h3>Filter Students by Rank</h3>
+            <div class="filter-buttons">
+                <button class="btn grade-filter-a" onclick="filterByGrade('A')">A Rank</button>
+                <button class="btn grade-filter-b" onclick="filterByGrade('B')">B Rank</button>
+                <button class="btn grade-filter-c" onclick="filterByGrade('C')">C Rank</button>
+                <button class="btn grade-filter-f" onclick="filterByGrade('F')">F Rank</button>
+                <button class="btn neutral" onclick="showAllStudents()">Show All</button>
+            </div>
+            <p id="filterMessage" class="sort-message"></p>
+        </div>
+
+        <div class="sort-panel">
+            <h3>Sorting Options</h3>
+
+            <div class="sort-buttons">
+                <button class="btn" onclick="sortByMarksDescending()">Marks ↓</button>
+                <button class="btn secondary" onclick="sortByMarksAscending()">Marks ↑</button>
+                <button class="btn grade-sort" onclick="sortByRangeDescending()">Grade / Range A → F</button>
+                <button class="btn secondary" onclick="sortByRangeAscending()">Grade / Range F → A</button>
+                <button class="btn neutral" onclick="displayStudents()">Reset Order</button>
+            </div>
+
+            <p id="sortMessage" class="sort-message"></p>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Department</th>
+                        <th>Marks</th>
+                        <th>Grade</th>
+                        <th>Marks Range</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="studentTable"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="add" class="card">
+        <h2>Add Student</h2>
+        <p class="muted">Add a new student record. Grade and range are calculated automatically.</p>
+
+        <form id="studentForm" class="form-grid">
+            <input id="id" placeholder="Student ID" required>
+            <input id="name" placeholder="Student Name" required>
+            <input id="age" type="number" placeholder="Age" min="1" max="100" required>
+            <input id="department" placeholder="Department" required>
+            <input id="marks" type="number" placeholder="Marks (0-100)" min="0" max="100" step="0.01" required>
+            <input id="phone" placeholder="Phone" required>
+            <button class="btn" type="submit">Add Student</button>
+        </form>
+
+        <p id="message"></p>
+    </section>
+
+    <section id="search" class="card">
+        <h2>Search Student</h2>
+        <p class="muted">Linear search is used to find a student by ID.</p>
+
+        <div class="search-box">
+            <input id="searchId" placeholder="Enter Student ID">
+            <button class="btn" onclick="searchStudent()">Search</button>
+        </div>
+
+        <div id="searchResult"></div>
+    </section>
+
+</main>
+
+<footer>
+    Student Record Management System &copy; 2026
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
